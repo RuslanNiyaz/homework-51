@@ -1,19 +1,34 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
+import LotteryBall from './components/LotteryBall';
 import './App.css';
 
-const App = () => {
-  const [count, setCount] = useState(0);
+const App: React.FC = () => {
+    const initialNumbers = [5, 11, 16, 23, 32];
+    const [numbers, setNumbers] = useState<number[]>(initialNumbers);
 
-  return (
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-  );
+    const addNewNumbers = () => {
+        const newNumbers = [...Array(5)].map(() => {
+            let randomNum;
+            do {
+                randomNum = Math.floor(Math.random() * 32) + 5;
+            } while (numbers.includes(randomNum));
+            return randomNum;
+        });
+
+        newNumbers.sort((a, b) => a - b);
+        setNumbers(newNumbers);
+    };
+
+    return (
+        <div className="app">
+            <button onClick={addNewNumbers}>New numbers</button>
+            <div className="lottery-balls">
+                {numbers.map((num, index) => (
+                    <LotteryBall key={index} number={num} />
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default App;
