@@ -21,7 +21,7 @@ const App: React.FC = () => {
 
     return (
         <div className="app">
-            <button onClick={addNewNumbers}>New numbers</button>
+            <button  className="button" onClick={addNewNumbers}>New numbers</button>
             <div className="lottery-balls">
                 {numbers.map((num, index) => (
                     <LotteryBall key={index} number={num} />
